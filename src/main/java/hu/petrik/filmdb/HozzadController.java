@@ -1,10 +1,15 @@
 package hu.petrik.filmdb;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-public class HozzadController {
+import java.sql.SQLException;
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class HozzadController extends Controller {
     @FXML
     private TextField inputCim;
     @FXML
@@ -48,12 +53,21 @@ public class HozzadController {
         }
         System.out.println(hossz);
         int ertekeles = inputErtekeles.getValue();
+
+        try {
+            FilmDb db = new FilmDb();
+            int siker = db.filmHozzaadasa(cim, kategoria, hossz, ertekeles);
+            if (siker == 1){
+                alert("Film hozzáadása sikeres");
+            } else {
+                alert("Film hozzáadása sikeretelen");
+            }
+        } catch (Exception e) {
+            hibaKiir(e);
+        }
+
     }
 
-    private void alert(String uzenet) {
-        Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.setContentText(uzenet);
-        alert.getButtonTypes().add(ButtonType.OK);
-        alert.show();
-    }
+
+
 }
