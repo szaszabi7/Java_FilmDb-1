@@ -31,10 +31,10 @@ public class FilmDb {
     public int filmHozzaadasa(String cim, String kategoria, int hossz, int ertekeles) throws SQLException {
         String sql = "INSERT INTO filmek(cim, kategoria, hossz, ertekeles) VALUES (?,?,?,?)";
         PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setString(1,cim);
-        stmt.setString(2,kategoria);
-        stmt.setInt(3,hossz);
-        stmt.setInt(4,ertekeles);
+        stmt.setString(1, cim);
+        stmt.setString(2, kategoria);
+        stmt.setInt(3, hossz);
+        stmt.setInt(4, ertekeles);
         return stmt.executeUpdate();
     }
 
@@ -42,6 +42,23 @@ public class FilmDb {
         String sql = "DELETE FROM filmek WHERE id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setInt(1, id);
+        int erintettSorok = stmt.executeUpdate();
+        return erintettSorok == 1;
+    }
+
+    public boolean filmModositasa(Film modositando) throws SQLException {
+        String sql = "UPDATE filmek SET" +
+                "cim = ?," +
+                "kategoria = ?," +
+                "hossz = ?," +
+                "ertekeles = ? " +
+                "WHERE id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1, modositando.getCim());
+        stmt.setString(2, modositando.getKategoria());
+        stmt.setInt(3, modositando.getHossz());
+        stmt.setInt(4, modositando.getErtekeles());
+        stmt.setInt(5, modositando.getId());
         int erintettSorok = stmt.executeUpdate();
         return erintettSorok == 1;
     }

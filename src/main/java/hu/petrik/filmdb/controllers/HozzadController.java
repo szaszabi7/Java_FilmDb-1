@@ -1,5 +1,7 @@
-package hu.petrik.filmdb;
+package hu.petrik.filmdb.controllers;
 
+import hu.petrik.filmdb.Controller;
+import hu.petrik.filmdb.FilmDb;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,7 +41,6 @@ public class HozzadController extends Controller {
             alert("A hossz megadása kötelező");
             return;
         } catch (Exception ex){
-            System.out.println(ex);
             alert("A hossz csak 1 és 999 közötti szám lehet");
             return;
         }
@@ -51,7 +52,6 @@ public class HozzadController extends Controller {
             alert("Értékelés kiválasztása köztelező");
             return;
         }
-        System.out.println(hossz);
         int ertekeles = inputErtekeles.getValue();
 
         try {
